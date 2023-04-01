@@ -4,6 +4,9 @@
 ![npm](https://img.shields.io/npm/dw/stable-diffusion-api)
 ![GitHub](https://img.shields.io/github/license/jaschahuisman/sd-api)
 
+[![npm](https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/package/stable-diffusion-api)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://www.github.com/jaschahuisman/sd-api)
+
 A Typescript API client for [AUTOMATIC111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) API that is unremarkably inspired by the Python library [webuiapi](https://github.com/mix1009/sdwebuiapi).
 
 - [Stable Diffusion Api](#stable-diffusion-api)
