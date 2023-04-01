@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+.git
+.gitignore
+yarn.lock
+dist
+*.ts
+*.tsx
+*.log
+.vscode
+.env
+.env.test
+.env.local
+.env.development
+.env.development.local
