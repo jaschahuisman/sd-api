@@ -1,10 +1,12 @@
 {
   "name": "stable-diffusion-api",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "API translation for Automatic1111 Stable Diffusion WebUI",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Jascha Huisman <jascha.huisman@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/jaschahuisman/sd-api.git",
@@ -12,6 +14,15 @@
     "type": "git",
     "url": "https://github.com/jaschahuisman/sd-api.git"
   },
+  "keywords": [
+    "javascript",
+    "api",
+    "client",
+    "typescript",
+    "stable-diffusion",
+    "automatic1111",
+    "stable-diffusion-webui"
+  ],
   "scripts": {
     "build": "tsc"
   },
