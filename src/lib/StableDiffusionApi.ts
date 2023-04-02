@@ -181,16 +181,15 @@ export class StableDiffusionApi {
     const init_images = await Promise.all(
       options.init_images.map(async (image) => await toBase64(image))
     );
-    const mask_image = options.mask_image
-      ? await toBase64(options.mask_image)
-      : null;
+
+    const mask = options.mask_image ? await toBase64(options.mask_image) : null;
 
     const response = await this.api.post<ApiRawResponse>("/sdapi/v1/img2img", {
       init_images,
       resize_mode: options.resize_mode ?? 0,
       denoising_strength: options.denoising_strength ?? 0.75,
       image_cfg_scale: options.image_cfg_scale ?? 1.5,
-      mask_image,
+      mask,
       mask_blur: options.mask_blur ?? 4,
       inpainting_fill: options.inpainting_fill ?? 0,
       inpaint_full_res: options.inpaint_full_res ?? true,
