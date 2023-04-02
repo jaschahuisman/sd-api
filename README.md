@@ -16,10 +16,13 @@ A Typescript API client for [AUTOMATIC111/stable-diffusion-webui](https://github
     - [Instantiation](#instantiation)
     - [txt2img](#txt2img)
     - [img2img](#img2img)
+  - [ControlNet Extension API usage](#controlnet-extension-api-usage)
+    - [ControlNetUnit](#controlnetunit)
+    - [detect](#detect)
 
 ## Requisites
 
-- To use this API client, you have to run `stable-diffusion-webui` with the `--api` command line argument. 
+- To use this API client, you have to run `stable-diffusion-webui` with the `--api` command line argument.
 - Optionally you can add `--nowebui` to disable the web interface.
 
 ## Installation
@@ -65,7 +68,7 @@ const result = await api.txt2img({
 result.image.toFile('result.png')
 ```
 
-| Result image
+| Result
 |:-------------------------:
 | ![](assets/img/robot_workplace.png)
 
@@ -83,6 +86,75 @@ const result = await api.img2img({
 result.image.toFile('result.png')
 ```
 
-|            Init image             |          Result image          |
+|               Input               |             Result             |
 | :-------------------------------: | :----------------------------: |
 | ![](assets/img/running_track.png) | ![](assets/img/lava_floor.png) |
+
+---
+
+## ControlNet Extension API usage
+
+- To use the ControlNet API, you must have installed the [ControlNet extension]() into your `stable-diffusion-webui` instance.
+- It's also necessary to have the desired ControlNet models installed into the extension's models directory.
+
+### ControlNetUnit
+
+To make use of the ControlNet API, you must first instantiate a `ControlNetUnit` object in wich you can specify the ControlNet model and preprocessor to use. Next, to use the unit, you must pass it as an array in the `controlnet_units` argument in the `txt2img` or `img2img` methods.
+
+It's also possible to use multiple ControlNet units in the same request. To get some good results, it's recommended to use lower weights for each unit by setting the `weight` argument to a lower value.
+
+To get a list of all installed ControlNet models, you can use the `api.ControlNet.getModels()` method.
+
+```typescript
+const image = sharp("image.png");
+
+const controlNetUnit = new ControlNetUnit({
+  model: "control_sd15_depth [fef5e48e]",
+  module: "depth",
+  input_images: [image],
+  preprocessor_res: 512,
+  threshold_a: 64,
+  threshold_b: 64,
+});
+
+const result = await api.txt2img({
+  prompt:
+    "Young lad laughing at all artists putting hard work and effort into their work.",
+  controlnet_units: [controlNetUnit],
+});
+
+result.image.toFile("result.png");
+
+// To access the preprocessing result, you can use the following:
+
+const depth = result.images[1];
+depth.toFile("depth.png");
+```
+
+|                Input                 |                 Result                 |                   Depth                   |
+| :----------------------------------: | :------------------------------------: | :---------------------------------------: |
+| ![](assets/img/grandpa_laughing.png) | ![](assets/img/young_lad_laughing.png) | ![](assets/img/grandpa_lauging_depth.png) |
+
+### detect
+
+Uses the selected ControlNet proprocessor module to predict a detection on the input image. To make use of the detection result, you must use the model of choise in the `txt2img` or `img2img` without a preprocessor enabled (use `"none"` as the preprocessor module).
+
+This comes in handy when you just want a detection result without generating a whole new image.
+
+```typescript
+const image = sharp("image.png");
+
+const result = await api.ControlNet.detect({
+  controlnet_module: "depth",
+  controlnet_input_images: [image],
+  controlnet_preprocessor_res: 512,
+  controlnet_threshold_a: 64,
+  controlnet_threshold_b: 64,
+});
+
+result.image.toFile("result.png");
+```
+
+|            Input             |               Result               |
+| :--------------------------: | :--------------------------------: |
+| ![](assets/img/food_man.png) | ![](assets/img/food_man_depth.png) |
