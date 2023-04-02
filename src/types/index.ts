@@ -298,7 +298,7 @@ export type ControlNetUnitConfig = {
 export type ControlNetDetectOptions = {
   controlnet_module?: ControlNetModule | string;
   controlnet_input_images: Sharp[];
-  controlnet_preprocessor_res?: number;
+  controlnet_processor_res?: number;
   controlnet_threshold_a?: number;
   controlnet_threshold_b?: number;
 };

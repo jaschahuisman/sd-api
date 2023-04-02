@@ -23,7 +23,7 @@ export class ControlNetApi {
    * const result = await api.controlnet.detect({
    *   controlnet_input_images: [image],
    *   controlnet_module: "depth",
-   *   controlnet_preprocessor_res: 512,
+   *   controlnet_processor_res: 512,
    *   controlnet_threshold_a: 64,
    *   controlnet_threshold_b: 64,
    * });
@@ -40,7 +40,7 @@ export class ControlNetApi {
     const response = await this.sd.api.post("/controlnet/detect", {
       controlnet_module: options.controlnet_module ?? "none",
       controlnet_input_images: input_images,
-      controlnet_preprocessor_res: options.controlnet_preprocessor_res ?? 512,
+      controlnet_processor_res: options.controlnet_processor_res ?? 512,
       controlnet_threshold_a: options.controlnet_threshold_a ?? 64,
       controlnet_threshold_b: options.controlnet_threshold_b ?? 64,
     });

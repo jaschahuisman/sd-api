@@ -121,7 +121,7 @@ const controlNetUnit = new ControlNetUnit({
   model: "control_sd15_depth [fef5e48e]",
   module: "depth",
   input_images: [image],
-  preprocessor_res: 512,
+  processor_res: 512,
   threshold_a: 64,
   threshold_b: 64,
 });
@@ -156,7 +156,7 @@ const image = sharp("image.png");
 const result = await api.ControlNet.detect({
   controlnet_module: "depth",
   controlnet_input_images: [image],
-  controlnet_preprocessor_res: 512,
+  controlnet_processor_res: 512,
   controlnet_threshold_a: 64,
   controlnet_threshold_b: 64,
 });
