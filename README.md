@@ -14,6 +14,7 @@ A Typescript API client for [AUTOMATIC111/stable-diffusion-webui](https://github
   - [Installation](#installation)
   - [Usage](#usage)
     - [Instantiation](#instantiation)
+    - [Authentication](#authentication)
     - [txt2img](#txt2img)
     - [img2img](#img2img)
   - [ControlNet Extension API usage](#controlnet-extension-api-usage)
@@ -57,6 +58,14 @@ const api = new StableDiffusionApi({
 });
 ```
 
+### Authentication
+
+Use the `--api-auth` command line argument with "username:password" on the server to enable API authentication.
+
+```typescript
+api.setAuth("username", "password");
+```
+
 ### txt2img
 
 ```typescript
@@ -94,7 +103,7 @@ result.image.toFile('result.png')
 
 ## ControlNet Extension API usage
 
-- To use the ControlNet API, you must have installed the [ControlNet extension]() into your `stable-diffusion-webui` instance.
+- To use the ControlNet API, you must have installed the [ControlNet extension](https://github.com/Mikubill/sd-webui-controlnet) into your `stable-diffusion-webui` instance.
 - It's also necessary to have the desired ControlNet models installed into the extension's models directory.
 
 ### ControlNetUnit
