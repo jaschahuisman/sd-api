@@ -18,6 +18,7 @@ A Typescript API client for [AUTOMATIC111/stable-diffusion-webui](https://github
     - [txt2img](#txt2img)
     - [img2img](#img2img)
   - [ControlNet Extension API usage](#controlnet-extension-api-usage)
+    - [Get models and modules](#get-models-and-modules)
     - [ControlNetUnit](#controlnetunit)
     - [detect](#detect)
 
@@ -105,6 +106,15 @@ result.image.toFile('result.png')
 
 - To use the ControlNet API, you must have installed the [ControlNet extension](https://github.com/Mikubill/sd-webui-controlnet) into your `stable-diffusion-webui` instance.
 - It's also necessary to have the desired ControlNet models installed into the extension's models directory.
+
+### Get models and modules
+
+To get a list of all installed ControlNet models and modules, you can use the `api.ControlNet.getModels()` and `api.ControlNet.getModules()` methods.
+
+```typescript
+const models = await api.ControlNet.getModels();
+const modules = await api.ControlNet.getModules();
+```
 
 ### ControlNetUnit
 
