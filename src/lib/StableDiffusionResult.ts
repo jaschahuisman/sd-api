@@ -30,23 +30,23 @@ export default class StableDiffusionResult {
   parameters: any;
 
   constructor(public response: StableDiffusionApiRawResponse) {
-    const addImage = (image: string) => {
-      const imageBuffer = Buffer.from(image, "base64");
-      const sharpImage = sharp(imageBuffer);
-      this.images.push(sharpImage);
-    };
-
-    if (response.data.image) {
-      addImage(response.data.image);
+    if (response.data.image && typeof response.data.image === "string") {
+      this.addImage(response.data.image);
     }
 
-    if (response.data.images && response.data.images.length > 0) {
-      response.data.images.map(addImage);
+    if (response.data.images && Array.isArray(response.data.images)) {
+      response.data.images.forEach(this.addImage);
     }
 
     this.info = response.data.info || response.data.html_info || {};
     this.parameters = response.data.parameters || {};
   }
+
+  private addImage = (image: string) => {
+    const imageBuffer = Buffer.from(image, "base64");
+    const sharpImage = sharp(imageBuffer);
+    this.images.push(sharpImage);
+  };
 
   /**
    * First sharp image from the result list, or undefined if no images
