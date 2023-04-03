@@ -22,7 +22,8 @@ export type SamplerName =
   | "DPM++ SDE Karras"
   | "DDIM"
   | "PLMS"
-  | "UniPC";
+  | "UniPC"
+  | string;
 
 export type StableDiffusionApiConfig = {
   host?: string;
@@ -54,7 +55,8 @@ export type UpscalerName =
   | "R-ESRGAN General 4xV3"
   | "ScuNET GAN"
   | "ScuNET PSNR"
-  | "SwinIR 4x";
+  | "SwinIR 4x"
+  | string;
 
 export type HiResUpscalerName =
   | "None"
@@ -70,7 +72,8 @@ export type HiResUpscalerName =
   | "LDSR"
   | "ScuNET GAN"
   | "ScuNET PSNR"
-  | "SwinIR 4x";
+  | "SwinIR 4x"
+  | string;
 
 export type Txt2ImgOptions = {
   enable_hr?: boolean;
@@ -113,10 +116,7 @@ export type Txt2ImgOptions = {
   save_images?: boolean;
   alwayson_scripts?: Record<string, unknown>;
   controlnet_units?: ControlNetUnit[];
-  /** use this instead of sampler_index */
-  sampler_name?: string;
-  /** deprecated: use sampler_name */
-  sampler_index?: number;
+  sampler_name?: SamplerName;
   use_deprecated_controlnet?: boolean;
 };
 
@@ -139,7 +139,7 @@ export type Img2ImgOptions = {
   subseed_strength?: number;
   seed_resize_from_h?: number;
   seed_resize_from_w?: number;
-  sampler_name?: string;
+  sampler_name?: SamplerName;
   batch_size?: number;
   n_iter?: number;
   steps?: number;
@@ -159,10 +159,7 @@ export type Img2ImgOptions = {
   override_settings?: {};
   override_settings_restore_afterwards?: boolean;
   script_args?: [];
-  /** deprecated: use sampler_name */
-  sampler_index?: number;
   include_init_images?: boolean;
-  /** use this instead of sampler_index */
   script_name?: string;
   send_images?: boolean;
   save_images?: boolean;
@@ -212,7 +209,8 @@ type ControlNetModule =
   | "scribble"
   | "fake_scribble"
   | "segmentation"
-  | "binary";
+  | "binary"
+  | string;
 
 export type ResizeMode = "Scale to Fit (Inner Fit)";
 

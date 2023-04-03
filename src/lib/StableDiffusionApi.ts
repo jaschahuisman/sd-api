@@ -155,7 +155,6 @@ export class StableDiffusionApi {
       alwayson_scripts: options.alwayson_scripts ?? {},
       controlnet_units,
       sampler_name: options.sampler_name ?? this.config.defaultSampler,
-      sampler_index: options.sampler_index ?? undefined,
       use_deprecated_controlnet: options.use_deprecated_controlnet ?? false,
     });
     return new StableDiffusionResult(response);
@@ -224,7 +223,6 @@ export class StableDiffusionApi {
       override_settings_restore_afterwards:
         options.override_settings_restore_afterwards ?? true,
       script_args: options.script_args ?? [],
-      sampler_index: options.sampler_index ?? undefined,
       include_init_images: options.include_init_images ?? false,
       script_name: options.script_name ?? null,
       send_images: options.send_images ?? true,

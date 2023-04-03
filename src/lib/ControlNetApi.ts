@@ -30,7 +30,9 @@ export class ControlNetApi {
    *
    * result.image.toFile("result.png");
    */
-  public async detect(options: ControlNetDetectOptions): Promise<StableDiffusionResult> {
+  public async detect(
+    options: ControlNetDetectOptions
+  ): Promise<StableDiffusionResult> {
     const input_images = await Promise.all(
       options.controlnet_input_images.map(
         async (image) => await toBase64(image)
@@ -67,21 +69,5 @@ export class ControlNetApi {
       "/controlnet/module_list"
     );
     return response.data.module_list;
-  }
-
-  /**
-   * @ignore
-   * @deprecated
-   */
-  public async txt2img() {
-    throw new Error("Not implemented");
-  }
-
-  /**
-   * @ignore
-   * @deprecated
-   */
-  public async img2img() {
-    throw new Error("Not implemented");
   }
 }
