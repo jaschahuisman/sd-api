@@ -3,16 +3,16 @@ import { type DefaultOptions, type ExtrasProps } from "../../types";
 import { toBase64 } from "../base64";
 
 type ImageList = {
-  image_names: string[];
-  image: string;
+  name: string;
+  data: string;
 };
 
 const createImageList = async (image: Sharp[], imageNames: string[]) => {
   const imageList = [] as ImageList[];
   for (let i = 0; i < image.length; i++) {
     imageList.push({
-      image_names: [imageNames[i] ?? `image_${i}`],
-      image: await toBase64(image[i]),
+      name: imageNames[i] ?? `image_${i}`,
+      data: await toBase64(image[i]),
     });
   }
   return imageList;
@@ -26,11 +26,15 @@ const convertImg2ImgProps = async (
 
   const imageObject = Array.isArray(image)
     ? {
-        image_list: await createImageList(image, imageNames ?? []),
+        imageList: await createImageList(image, imageNames ?? []),
       }
     : {
         image: await toBase64(image),
       };
+
+  if (imageObject.imageList) {
+    console.log(Object.keys(imageObject.imageList[0]));
+  }
 
   return {
     ...imageObject,
