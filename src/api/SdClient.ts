@@ -2,11 +2,13 @@ import axios, { type AxiosInstance, type CreateAxiosDefaults } from "axios";
 import img2img from "./endpoints/img2img";
 import txt2img from "./endpoints/txt2img";
 import {
+  type ExtrasProps,
   type DefaultOptions,
   type Img2ImgProps,
   type Txt2ImgProps,
 } from "../types";
 import ControlNetClient from "./ControlNetClient";
+import extras from "./endpoints/extras";
 
 export default class SdClient {
   public readonly axiosInstance: AxiosInstance;
@@ -44,6 +46,7 @@ export default class SdClient {
     };
   }
 
+  public extras = async (props: ExtrasProps) => await extras(this, props);
   public img2img = async (props: Img2ImgProps) => await img2img(this, props);
   public txt2img = async (props: Txt2ImgProps) => await txt2img(this, props);
 
