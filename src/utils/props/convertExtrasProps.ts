@@ -32,10 +32,6 @@ const convertImg2ImgProps = async (
         image: await toBase64(image),
       };
 
-  if (imageObject.imageList) {
-    console.log(Object.keys(imageObject.imageList[0]));
-  }
-
   return {
     ...imageObject,
     resize_mode: props.resizeMode ?? 0,
