@@ -1,8 +1,13 @@
-export * from "./lib/ControlNetApi";
-export * from "./lib/ControlNetUnit";
-export * from "./lib/StableDiffusionApi";
-export * from "./lib/StableDiffusionResult";
-export * from "./types";
+export * as default from "./api/SdClient";
+export * from "./api/endpoints/controlnet/detect";
+export * from "./api/endpoints/extras";
+export * from "./api/endpoints/img2img";
+export * from "./api/endpoints/txt2img";
+export * from "./api/ControlNetClient";
+export * from "./utils/props/convertBaseProps";
+export * from "./utils/props/convertControlNetDetectProps";
+export * from "./utils/props/convertHiResProps";
+export * from "./utils/props/convertImg2ImgProps";
+export * from "./utils/props/convertTxt2ImgProps";
 export * from "./utils/base64";
-
-export { StableDiffusionApi as default } from "./lib/StableDiffusionApi";
+export * from "./types";
