@@ -5,10 +5,10 @@ export default class ControlNetUnit {
   constructor(public props: ControlNetUnitProps) {}
 
   public convertPropsToArgs = async () => {
-    const { image, mask } = this.props;
+    const { image, maskImage } = this.props;
     return {
       input_image: image ? await toBase64(image, true) : null,
-      mask: mask ? await toBase64(mask, true) : null,
+      mask: maskImage ? await toBase64(maskImage, true) : null,
       module: this.props.module ?? "none",
       model: this.props.model ?? "None",
       weight: this.props.weight ?? 1,

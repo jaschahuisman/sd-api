@@ -65,6 +65,7 @@ export type Txt2ImgProps = BaseProps & {
 export type Img2ImgProps = BaseProps & {
   image: Sharp | Sharp[]; // init_images
   resizeMode?: number; // resize_mode
+  denoisingStrength?: number; // denoising_strength
   imageCfgScale?: number; // image_cfg_scale
   maskImage?: Sharp; // mask_image
   maskBlur?: number; // mask_blur
@@ -104,7 +105,7 @@ export type ControlNetDetectProps = {
 
 export type ControlNetUnitProps = {
   image?: Sharp; // input_image
-  mask?: Sharp; // mask
+  maskImage?: Sharp; // mask
   module?: string; // module
   model?: string; // model
   weight?: number; // weight

@@ -19,6 +19,7 @@ const convertImg2ImgProps = async (
     init_images,
     mask_image,
     resize_mode: props.resizeMode ?? 0,
+    denoising_strength: props.denoisingStrength ?? 0.75,
     image_cfg_scale: props.imageCfgScale ?? 1.5,
     mask_blur: props.maskBlur ?? 4,
     inpainting_fill: props.inpaintingFill ?? 0,
