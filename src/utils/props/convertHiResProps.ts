@@ -1,9 +1,11 @@
 import { type DefaultOptions, type HiResProps } from "../../types";
 
 const convertHiResProps = (
-  props: HiResProps,
-  _defaultOptions: DefaultOptions
+  props?: HiResProps,
+  _defaultOptions?: DefaultOptions
 ) => {
+  if (!props) return {};
+
   return {
     enable_hr: props.enable ?? false,
     hr_scale: props.scale ?? 2,

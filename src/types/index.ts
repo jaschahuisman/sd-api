@@ -59,7 +59,7 @@ export type HiResProps = {
 };
 
 export type Txt2ImgProps = BaseProps & {
-  hiRes: HiResProps;
+  hiRes?: HiResProps;
 };
 
 export type Img2ImgProps = BaseProps & {
