@@ -76,7 +76,23 @@ export type Img2ImgProps = BaseProps & {
   includeInitImages?: boolean; // include_init_images
 };
 
-export type ExtrasProps = {};
+export type ExtrasProps = {
+  resizeMode?: number; // resize_mode
+  showExtrasResults?: boolean; // show_extras_results
+  gfpGanVisibility?: number; // gfpgan_visibility
+  codeformerVisibility?: number; // codeformer_visibility
+  codeformerWeight?: number; // codeformer_weight
+  upscalingResize?: number; // upscaling_resize
+  upscalingResizeWidth?: number; // upscaling_resize_w
+  upscalingResizeHeight?: number; // upscaling_resize_h
+  upscalingCrop?: boolean; // upscaling_crop
+  upscaler1?: string; // upscaler_1
+  upscaler2?: string; // upscaler_2
+  extrasUpscaler2Visibility?: number; // extras_upscaler_2_visibility
+  upscaleFirst?: false; // upscale_first
+  image: Sharp | Sharp[]; // image
+  imageNames?: string[]; // image_names
+};
 
 export type ControlNetDetectProps = {
   module?: string; // controlnet_module
