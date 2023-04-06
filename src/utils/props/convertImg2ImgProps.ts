@@ -12,13 +12,13 @@ const convertImg2ImgProps = async (
     ? await Promise.all(image.map((img) => toBase64(img)))
     : [await toBase64(image)];
 
-  const mask_image = maskImage ? await toBase64(maskImage) : null;
+  const mask_image = maskImage ? await toBase64(maskImage) : undefined;
 
   return {
-    ...convertBaseProps(props, defaultOptions),
+    ...(await convertBaseProps(props, defaultOptions)),
     init_images,
     mask_image,
-    resize_mode: props.resizeMode ?? "",
+    resize_mode: props.resizeMode ?? 0,
     image_cfg_scale: props.imageCfgScale ?? 1.5,
     mask_blur: props.maskBlur ?? 4,
     inpainting_fill: props.inpaintingFill ?? 0,
