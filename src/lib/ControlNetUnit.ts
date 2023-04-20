@@ -27,8 +27,8 @@ export class ControlNetUnit {
   constructor(public config: ControlNetUnitConfig) {}
 
   async toJson() {
-    const input_image = await toBase64(this.config.input_image, true);
-    const mask = this.config.mask && (await toBase64(this.config.mask, true));
+    const input_image = await toBase64(this.config.input_image);
+    const mask = this.config.mask && (await toBase64(this.config.mask));
     return {
       input_image,
       mask,

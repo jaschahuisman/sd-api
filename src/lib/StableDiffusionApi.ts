@@ -22,6 +22,18 @@ import stringSimilarity from "string-similarity";
 import StableDiffusionResult from "./StableDiffusionResult";
 import { ControlNetApi } from "./ControlNetApi";
 import { toBase64 } from "../utils/base64";
+import { ControlNetUnit } from "./ControlNetUnit";
+
+const createScriptsWithCnUnits = async (
+  initScripts: {} | undefined,
+  controlNetUnit: ControlNetUnit[]
+) => {
+  const promises = controlNetUnit.map(async (unit) => await unit.toJson());
+  const args = await Promise.all(promises);
+  const ControlNet = { args };
+  const scripts = { ...initScripts, ControlNet };
+  return scripts;
+};
 
 /**
  * @class StableDiffusionApi
@@ -108,8 +120,9 @@ export class StableDiffusionApi {
   public async txt2img(
     options: Txt2ImgOptions
   ): Promise<StableDiffusionResult> {
-    const controlnet_units = await Promise.all(
-      options.controlnet_units?.map(async (unit) => await unit.toJson()) ?? []
+    const alwayson_scripts = await createScriptsWithCnUnits(
+      options.alwayson_scripts,
+      options.controlnet_units ?? []
     );
 
     const response = await this.api.post<ApiRawResponse>("/sdapi/v1/txt2img", {
@@ -152,8 +165,7 @@ export class StableDiffusionApi {
       script_name: options.script_name ?? null,
       send_images: options.send_images ?? true,
       save_images: options.save_images ?? false,
-      alwayson_scripts: options.alwayson_scripts ?? {},
-      controlnet_units,
+      alwayson_scripts,
       sampler_name: options.sampler_name ?? this.config.defaultSampler,
       use_deprecated_controlnet: options.use_deprecated_controlnet ?? false,
     });
@@ -182,6 +194,11 @@ export class StableDiffusionApi {
     );
 
     const mask = options.mask_image ? await toBase64(options.mask_image) : null;
+
+    const alwayson_scripts = await createScriptsWithCnUnits(
+      options.alwayson_scripts,
+      options.controlnet_units ?? []
+    );
 
     const response = await this.api.post<ApiRawResponse>("/sdapi/v1/img2img", {
       init_images,
@@ -227,9 +244,7 @@ export class StableDiffusionApi {
       script_name: options.script_name ?? null,
       send_images: options.send_images ?? true,
       save_images: options.save_images ?? false,
-      alwayson_scripts: options.alwayson_scripts ?? {},
-      controlnet_units:
-        options.controlnet_units?.map((unit) => unit.toJson()) ?? [],
+      alwayson_scripts,
       use_deprecated_controlnet: options.use_deprecated_controlnet ?? false,
     });
     return new StableDiffusionResult(response);
