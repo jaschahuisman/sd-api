@@ -1,7 +1,7 @@
-import { ControlNetDetectOptions } from "../types";
-import { toBase64 } from "../utils/base64";
-import StableDiffusionResult from "./StableDiffusionResult";
-import { StableDiffusionApi } from "./StableDiffusionApi";
+import { ControlNetDetectOptions } from '../types';
+import { toBase64 } from '../utils/offscreen-canvas-util';
+import StableDiffusionResult from './StableDiffusionResult';
+import { StableDiffusionApi } from './StableDiffusionApi';
 
 /**
  * @class ControlNetApi
@@ -30,23 +30,19 @@ export class ControlNetApi {
    *
    * result.image.toFile("result.png");
    */
-  public async detect(
-    options: ControlNetDetectOptions
-  ): Promise<StableDiffusionResult> {
+  public async detect(options: ControlNetDetectOptions): Promise<StableDiffusionResult> {
     const input_images = await Promise.all(
-      options.controlnet_input_images.map(
-        async (image) => await toBase64(image)
-      )
+      options.controlnet_input_images.map(async image => await toBase64(image)),
     );
 
-    const response = await this.sd.api.post("/controlnet/detect", {
-      controlnet_module: options.controlnet_module ?? "none",
+    const response = await this.sd.api.post('/controlnet/detect', {
+      controlnet_module: options.controlnet_module ?? 'none',
       controlnet_input_images: input_images,
       controlnet_processor_res: options.controlnet_processor_res ?? 512,
       controlnet_threshold_a: options.controlnet_threshold_a ?? 64,
       controlnet_threshold_b: options.controlnet_threshold_b ?? 64,
     });
-    return new StableDiffusionResult(response);
+    return await StableDiffusionResult.create(response);
   }
 
   /**
@@ -55,7 +51,7 @@ export class ControlNetApi {
    */
   public async getModels(): Promise<string[]> {
     const response = await this.sd.api.get<{ model_list: string[] }>(
-      "/controlnet/model_list"
+      '/controlnet/model_list',
     );
     return response.data.model_list;
   }
@@ -66,7 +62,7 @@ export class ControlNetApi {
    */
   public async getModules(): Promise<string[]> {
     const response = await this.sd.api.get<{ module_list: string[] }>(
-      "/controlnet/module_list"
+      '/controlnet/module_list',
     );
     return response.data.module_list;
   }

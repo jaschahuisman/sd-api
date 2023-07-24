@@ -1,28 +1,28 @@
-import { AxiosResponse } from "axios";
-import { ControlNetUnit } from "../lib/ControlNetUnit";
-import { type Sharp } from "sharp";
+import { AxiosResponse } from 'axios';
+import { ControlNetUnit } from '../lib/ControlNetUnit';
+import { type Sharp } from 'sharp';
 
 export type SamplerName =
-  | "Euler a"
-  | "Euler"
-  | "LMS"
-  | "Heun"
-  | "DPM2"
-  | "DPM2 a"
-  | "DPM++ 2S a"
-  | "DPM++ 2M"
-  | "DPM++ SDE"
-  | "DPM fast"
-  | "DPM adaptive"
-  | "LMS Karras"
-  | "DPM2 Karras"
-  | "DPM2 a Karras"
-  | "DPM++ 2S a Karras"
-  | "DPM++ 2M Karras"
-  | "DPM++ SDE Karras"
-  | "DDIM"
-  | "PLMS"
-  | "UniPC"
+  | 'Euler a'
+  | 'Euler'
+  | 'LMS'
+  | 'Heun'
+  | 'DPM2'
+  | 'DPM2 a'
+  | 'DPM++ 2S a'
+  | 'DPM++ 2M'
+  | 'DPM++ SDE'
+  | 'DPM fast'
+  | 'DPM adaptive'
+  | 'LMS Karras'
+  | 'DPM2 Karras'
+  | 'DPM2 a Karras'
+  | 'DPM++ 2S a Karras'
+  | 'DPM++ 2M Karras'
+  | 'DPM++ SDE Karras'
+  | 'DDIM'
+  | 'PLMS'
+  | 'UniPC'
   | string;
 
 export type StableDiffusionApiConfig = {
@@ -32,7 +32,7 @@ export type StableDiffusionApiConfig = {
   timeout?: number;
   defaultSampler?: SamplerName;
   defaultStepCount?: number;
-  protocol?: "http" | "https";
+  protocol?: 'http' | 'https';
 };
 
 export type ApiRawResponse = {
@@ -46,33 +46,33 @@ export type ApiRawResponse = {
 export type AxiosApiRawResponse = AxiosResponse<ApiRawResponse>;
 
 export type UpscalerName =
-  | "None"
-  | "Lanczos"
-  | "Nearest"
-  | "LDSR"
-  | "BSRGAN"
-  | "ESRGAN_4x"
-  | "R-ESRGAN General 4xV3"
-  | "ScuNET GAN"
-  | "ScuNET PSNR"
-  | "SwinIR 4x"
+  | 'None'
+  | 'Lanczos'
+  | 'Nearest'
+  | 'LDSR'
+  | 'BSRGAN'
+  | 'ESRGAN_4x'
+  | 'R-ESRGAN General 4xV3'
+  | 'ScuNET GAN'
+  | 'ScuNET PSNR'
+  | 'SwinIR 4x'
   | string;
 
 export type HiResUpscalerName =
-  | "None"
-  | "Latent"
-  | "Latent (antialiased)"
-  | "Latent (bicubic)"
-  | "Latent (bicubic antialiased)"
-  | "Latent (nearist)"
-  | "Latent (nearist-exact)"
-  | "Lanczos"
-  | "Nearest"
-  | "ESRGAN_4x"
-  | "LDSR"
-  | "ScuNET GAN"
-  | "ScuNET PSNR"
-  | "SwinIR 4x"
+  | 'None'
+  | 'Latent'
+  | 'Latent (antialiased)'
+  | 'Latent (bicubic)'
+  | 'Latent (bicubic antialiased)'
+  | 'Latent (nearist)'
+  | 'Latent (nearist-exact)'
+  | 'Lanczos'
+  | 'Nearest'
+  | 'ESRGAN_4x'
+  | 'LDSR'
+  | 'ScuNET GAN'
+  | 'ScuNET PSNR'
+  | 'SwinIR 4x'
   | string;
 
 export type Txt2ImgOptions = {
@@ -121,7 +121,7 @@ export type Txt2ImgOptions = {
 };
 
 export type Img2ImgOptions = {
-  init_images: Sharp[];
+  init_images: OffscreenCanvas[];
   resize_mode?: number;
   denoising_strength?: number;
   image_cfg_scale?: number;
@@ -169,7 +169,7 @@ export type Img2ImgOptions = {
 };
 
 export type ExtraBaseOptions = {
-  image: Sharp;
+  image: OffscreenCanvas;
   resize_mode?: number;
   show_extras_results?: boolean;
   gfpgan_visibility?: number;
@@ -185,34 +185,34 @@ export type ExtraBaseOptions = {
 };
 
 export type ExtraSingleOptions = {
-  image: Sharp;
+  image: OffscreenCanvas;
 } & ExtraBaseOptions;
 
 export type ExtraBatchOptions = {
-  images: Sharp[];
+  images: OffscreenCanvas[];
   name_list: string[];
 } & ExtraBaseOptions;
 
 type ControlNetModule =
-  | "none"
-  | "canny"
-  | "depth"
-  | "depth_leres"
-  | "hed"
-  | "mlsd"
-  | "normal_map"
-  | "openpose"
-  | "openpose_hand"
-  | "clip_vision"
-  | "color"
-  | "pidinet"
-  | "scribble"
-  | "fake_scribble"
-  | "segmentation"
-  | "binary"
+  | 'none'
+  | 'canny'
+  | 'depth'
+  | 'depth_leres'
+  | 'hed'
+  | 'mlsd'
+  | 'normal_map'
+  | 'openpose'
+  | 'openpose_hand'
+  | 'clip_vision'
+  | 'color'
+  | 'pidinet'
+  | 'scribble'
+  | 'fake_scribble'
+  | 'segmentation'
+  | 'binary'
   | string;
 
-export type ResizeMode = "Scale to Fit (Inner Fit)";
+export type ResizeMode = 'Scale to Fit (Inner Fit)';
 
 export type Progress = {
   progress: number;
@@ -277,8 +277,8 @@ export type PromptStyle = {
 };
 
 export type ControlNetUnitConfig = {
-  input_image: Sharp;
-  mask?: Sharp;
+  input_image: OffscreenCanvas;
+  mask?: OffscreenCanvas;
   module: ControlNetModule;
   model?: string;
   weight?: number;
@@ -295,7 +295,7 @@ export type ControlNetUnitConfig = {
 
 export type ControlNetDetectOptions = {
   controlnet_module?: ControlNetModule | string;
-  controlnet_input_images: Sharp[];
+  controlnet_input_images: OffscreenCanvas[];
   controlnet_processor_res?: number;
   controlnet_threshold_a?: number;
   controlnet_threshold_b?: number;

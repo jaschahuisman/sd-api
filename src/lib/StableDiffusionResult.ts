@@ -1,12 +1,13 @@
-import { AxiosApiRawResponse as StableDiffusionApiRawResponse } from "../types";
-import sharp from "sharp";
+import { AxiosApiRawResponse as StableDiffusionApiRawResponse } from '../types';
+import sharp from 'sharp';
+import { offscreenCanvasFromBase64, toBase64 } from '../utils/offscreen-canvas-util';
 
 /**
  * @class StableDiffusionResult
  * @classdesc Result of a Stable Diffusion image processing API call
  * @param {StableDiffusionApiRawResponse} Raw axios response
- * @property {sharp.Sharp} image - First sharp image from the result list
- * @property {sharp.Sharp[]} images - List of sharp images
+ * @property {OffscreenCanvas} image - First sharp image from the result list
+ * @property {OffscreenCanvas[]} images - List of sharp images
  * @property {any} info - Info object
  * @property {any} parameters - Parameters object
  * @property {AxiosApiRawResponse} response - Raw response from the API
@@ -25,34 +26,45 @@ import sharp from "sharp";
  * })
  */
 export default class StableDiffusionResult {
-  images: sharp.Sharp[] = [];
+  images: OffscreenCanvas[] = [];
   info: any;
   parameters: any;
 
-  constructor(public response: StableDiffusionApiRawResponse) {
-    if (response.data.image && typeof response.data.image === "string") {
-      this.addImage(response.data.image);
+  private constructor() {
+    return;
+  }
+  private async initialize(response: StableDiffusionApiRawResponse) {
+    if (response.data.image && typeof response.data.image === 'string') {
+      await this.addImage(response.data.image);
     }
 
     if (response.data.images && Array.isArray(response.data.images)) {
-      response.data.images.forEach(this.addImage);
+      await Promise.all(response.data.images.map(image => this.addImage(image)));
     }
 
     this.info = response.data.info || response.data.html_info || {};
     this.parameters = response.data.parameters || {};
   }
+  public static async create(response: StableDiffusionApiRawResponse) {
+    const ret = new StableDiffusionResult();
+    await ret.initialize(response);
+    console.log(ret.images.length);
+    console.log(ret.info);
+    console.log(ret.images[0].width);
+    return ret;
+  }
 
-  private addImage = (image: string) => {
-    const imageBuffer = Buffer.from(image, "base64");
-    const sharpImage = sharp(imageBuffer);
-    this.images.push(sharpImage);
+  private addImage = async (image: string) => {
+    const canvasImage = await offscreenCanvasFromBase64(image);
+    this.images.push(canvasImage);
+    console.log(this.images.length);
   };
 
   /**
-   * First sharp image from the result list, or undefined if no images
-   * @returns {sharp.Sharp} First sharp image from the result list
+   * First offscreenCanvas image from the result list, or undefined if no images
+   * @returns {offscreenCanvas} First sharp image from the result list
    */
-  public get image(): sharp.Sharp {
+  public get image(): OffscreenCanvas {
     return this.images[0];
   }
 }

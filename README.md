@@ -42,20 +42,20 @@ yarn add stable-diffusion-api
 ### Instantiation
 
 ```typescript
-import StableDiffusionApi from "stable-diffusion-api";
+import StableDiffusionApi from 'stable-diffusion-api';
 
 const api = new StableDiffusionApi();
 
 const api = new StableDiffusionApi({
-  host: "localhost",
+  host: 'localhost',
   port: 7860,
-  protocol: "http",
-  defaultSampler: "Euler a",
+  protocol: 'http',
+  defaultSampler: 'Euler a',
   defaultStepCount: 20,
 });
 
 const api = new StableDiffusionApi({
-  baseUrl: "http://localhost:7860",
+  baseUrl: 'http://localhost:7860',
 });
 ```
 
@@ -64,7 +64,7 @@ const api = new StableDiffusionApi({
 Use the `--api-auth` command line argument with "username:password" on the server to enable API authentication.
 
 ```typescript
-api.setAuth("username", "password");
+api.setAuth('username', 'password');
 ```
 
 ### txt2img
@@ -125,11 +125,11 @@ It's also possible to use multiple ControlNet units in the same request. To get 
 To get a list of all installed ControlNet models, you can use the `api.ControlNet.getModels()` method.
 
 ```typescript
-const image = sharp("image.png");
+const image = sharp('image.png');
 
 const controlNetUnit = new ControlNetUnit({
-  model: "control_sd15_depth [fef5e48e]",
-  module: "depth",
+  model: 'control_sd15_depth [fef5e48e]',
+  module: 'depth',
   input_images: [image],
   processor_res: 512,
   threshold_a: 64,
@@ -138,16 +138,16 @@ const controlNetUnit = new ControlNetUnit({
 
 const result = await api.txt2img({
   prompt:
-    "Young lad laughing at all artists putting hard work and effort into their work.",
+    'Young lad laughing at all artists putting hard work and effort into their work.',
   controlnet_units: [controlNetUnit],
 });
 
-result.image.toFile("result.png");
+result.image.toFile('result.png');
 
 // To access the preprocessing result, you can use the following:
 
 const depth = result.images[1];
-depth.toFile("depth.png");
+depth.toFile('depth.png');
 ```
 
 |                Input                 |                 Result                 |                   Depth                   |
@@ -161,17 +161,17 @@ Uses the selected ControlNet proprocessor module to predict a detection on the i
 This comes in handy when you just want a detection result without generating a whole new image.
 
 ```typescript
-const image = sharp("image.png");
+const image = sharp('image.png');
 
 const result = await api.ControlNet.detect({
-  controlnet_module: "depth",
+  controlnet_module: 'depth',
   controlnet_input_images: [image],
   controlnet_processor_res: 512,
   controlnet_threshold_a: 64,
   controlnet_threshold_b: 64,
 });
 
-result.image.toFile("result.png");
+result.image.toFile('result.png');
 ```
 
 |            Input             |               Result               |

@@ -1,5 +1,5 @@
-import { ControlNetUnitConfig } from "../types";
-import { toBase64 } from "../utils/base64";
+import { ControlNetUnitConfig } from '../types';
+import { toBase64 } from '../utils/offscreen-canvas-util';
 
 /**
  * @class ControlNetUnit
@@ -32,10 +32,10 @@ export class ControlNetUnit {
     return {
       input_image,
       mask,
-      module: this.config.module ?? "none",
-      model: this.config.model ?? "None",
+      module: this.config.module ?? 'none',
+      model: this.config.model ?? 'None',
       weight: this.config.weight ?? 1,
-      resize_mode: this.config.resize_mode ?? "Scale to Fit (Inner Fit)",
+      resize_mode: this.config.resize_mode ?? 'Scale to Fit (Inner Fit)',
       lowvram: this.config.lowvram ?? false,
       processor_res: this.config.processor_res ?? 64,
       threshold_a: this.config.threshold_a ?? 64,
