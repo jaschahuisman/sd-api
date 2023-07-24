@@ -1,5 +1,11 @@
 # Stable Diffusion Api
 
+This library is forked from [jaschahuisman/sd-api] https://github.com/jaschahuisman/sd-api/tree/main
+
+I changed it for frontend working.
+
+- I remove Sharp which only avaiable for backend and replace it to offscreenCanvas.
+
 ![npm](https://img.shields.io/npm/v/stable-diffusion-api)
 ![npm](https://img.shields.io/npm/dw/stable-diffusion-api)
 ![GitHub](https://img.shields.io/github/license/jaschahuisman/sd-api)
