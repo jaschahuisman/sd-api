@@ -1,4 +1,4 @@
-import { ControlNetUnitConfig } from "../types";
+import { ControlNetUnitConfig, ResizeMode } from "../types";
 import { toBase64 } from "../utils/base64";
 
 /**
@@ -35,7 +35,7 @@ export class ControlNetUnit {
       module: this.config.module ?? "none",
       model: this.config.model ?? "None",
       weight: this.config.weight ?? 1,
-      resize_mode: this.config.resize_mode ?? "Scale to Fit (Inner Fit)",
+      resize_mode: this.config.resize_mode ?? "Scale to Fit (Inner Fit)" as ResizeMode,
       lowvram: this.config.lowvram ?? false,
       processor_res: this.config.processor_res ?? 64,
       threshold_a: this.config.threshold_a ?? 64,
