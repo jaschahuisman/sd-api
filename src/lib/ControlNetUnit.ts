@@ -24,7 +24,7 @@ import { toBase64 } from "../utils/base64";
  * result.image.toFile("result.png");
  */
 export class ControlNetUnit {
-  constructor(public config: ControlNetUnitConfig) {}
+  constructor(public config: ControlNetUnitConfig) { }
 
   async toJson() {
     const input_image = await toBase64(this.config.input_image);
@@ -43,7 +43,7 @@ export class ControlNetUnit {
       guidance: this.config.guidance ?? 1,
       guidance_start: this.config.guidance_start ?? 0,
       guidance_end: this.config.guidance_end ?? 1,
-      guessmode: this.config.guessmode ?? false,
+      control_mode: "ControlNet is more important",
     } as const;
   }
 }
