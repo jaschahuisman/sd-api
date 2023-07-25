@@ -307,4 +307,4 @@ export type ControlNetDetectOptions = {
 
 export type ControlNetTxt2ImgOptions = {};
 
-export type ControlMode = "Balanced" | "My prompt is more important" | "ControlNet is more important" |
+export type ControlMode = "Balanced" | "My prompt is more important" | "ControlNet is more important" 
