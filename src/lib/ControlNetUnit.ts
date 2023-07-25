@@ -1,4 +1,4 @@
-import { ControlNetUnitConfig, ResizeMode } from "../types";
+import { ControlMode, ControlNetUnitConfig, ResizeMode } from "../types";
 import { toBase64 } from "../utils/base64";
 
 /**
@@ -29,13 +29,15 @@ export class ControlNetUnit {
   async toJson() {
     const input_image = await toBase64(this.config.input_image);
     const mask = this.config.mask && (await toBase64(this.config.mask));
+    let defaultResizeMode: ResizeMode = "Scale to Fit (Inner Fit)"
+    let defaultControlMode: ControlMode = "Balanced"
     return {
       input_image,
       mask,
       module: this.config.module ?? "none",
       model: this.config.model ?? "None",
       weight: this.config.weight ?? 1,
-      resize_mode: this.config.resize_mode ?? "Scale to Fit (Inner Fit)" as ResizeMode,
+      resize_mode: this.config.resize_mode ?? defaultResizeMode,
       lowvram: this.config.lowvram ?? false,
       processor_res: this.config.processor_res ?? 64,
       threshold_a: this.config.threshold_a ?? 64,
@@ -43,7 +45,7 @@ export class ControlNetUnit {
       guidance: this.config.guidance ?? 1,
       guidance_start: this.config.guidance_start ?? 0,
       guidance_end: this.config.guidance_end ?? 1,
-      control_mode: "Balanced",
+      control_mode: this.config.control_mode ?? defaultControlMode,
     } as const;
   }
 }
