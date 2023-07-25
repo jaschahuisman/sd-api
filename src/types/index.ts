@@ -294,7 +294,7 @@ export type ControlNetUnitConfig = {
   guidance?: number;
   guidance_start?: number;
   guidance_end?: number;
-  controlmode?: ControlMode;
+  control_mode?: ControlMode;
 };
 
 export type ControlNetDetectOptions = {

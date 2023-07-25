@@ -43,7 +43,7 @@ export class ControlNetUnit {
       guidance: this.config.guidance ?? 1,
       guidance_start: this.config.guidance_start ?? 0,
       guidance_end: this.config.guidance_end ?? 1,
-      control_mode: "ControlNet is more important",
+      control_mode: "Balanced",
     } as const;
   }
 }
