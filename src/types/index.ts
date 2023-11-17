@@ -212,7 +212,11 @@ type ControlNetModule =
   | "binary"
   | string;
 
-export type ResizeMode = "Scale to Fit (Inner Fit)";
+export type ResizeMode = "Inner Fit (Scale to Fit)" |
+  "Outer Fit (Shrink to Fit)" |
+  "Scale to Fit (Inner Fit)" |
+  'Envelope (Outer Fit)'
+  ;
 
 export type Progress = {
   progress: number;
@@ -290,7 +294,7 @@ export type ControlNetUnitConfig = {
   guidance?: number;
   guidance_start?: number;
   guidance_end?: number;
-  guessmode?: boolean;
+  control_mode?: ControlMode;
 };
 
 export type ControlNetDetectOptions = {
@@ -302,3 +306,5 @@ export type ControlNetDetectOptions = {
 };
 
 export type ControlNetTxt2ImgOptions = {};
+
+export type ControlMode = "Balanced" | "My prompt is more important" | "ControlNet is more important" 

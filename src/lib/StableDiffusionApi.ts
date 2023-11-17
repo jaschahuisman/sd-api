@@ -517,7 +517,7 @@ export class StableDiffusionApi {
     findClosest: boolean = true
   ): Promise<void> {
     const models = await this.getSdModels();
-    const modelNames = models.map((model: any) => model.name);
+    const modelNames = models.map((model) => model.model_name);
 
     let foundModel = null;
 
